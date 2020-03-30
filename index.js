@@ -5,7 +5,7 @@ let grid = JSON.parse(contents);
 console.log(grid);
 
     
-    function possible(x,y,n){
+function possible(x,y,n){
     for (i = 0; i < 9; i++) {
         if ( grid[x][i] === n ) {
             return false;
