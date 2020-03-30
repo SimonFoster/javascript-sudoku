@@ -1,15 +1,29 @@
+console.log( process.argv );
+
 var fs = require('fs');
 
-var contents = fs.readFileSync('DATA', 'utf8');
-let grid = JSON.parse(contents);
+var contents = fs.readFileSync(process.argv[2], 'utf8');
 
+contents.split('\n').map( ( line, index)  => {
+  console.log( `\nProcessing ${index} "${line}" ${line.length}` );
+  let p = line.split('')
+  .map( ch => {
+    if ( ch === '.' ) return 0;
+    return parseInt(ch);
+  });
+  let puzzle = [];
+  while ( p.length > 0 ){
+    puzzle.push( p.splice(0,9));
+  }
+  solve( puzzle );
+});
 
-function possible(x, y, n) {
+function possible(p, x, y, n) {
   for (i = 0; i < 9; i++) {
-    if (grid[x][i] === n) {
+    if (p[x][i] === n) {
       return false;
     }
-    if (grid[i][y] === n) {
+    if (p[i][y] === n) {
       return false;
     }
   }
@@ -19,7 +33,7 @@ function possible(x, y, n) {
 
   for (let i of [0, 1, 2]) {
     for (let j of [0, 1, 2]) {
-      if (grid[x0 + i][y0 + j] === n) {
+      if (p[x0 + i][y0 + j] === n) {
         return false;
       }
     }
@@ -27,28 +41,28 @@ function possible(x, y, n) {
   return true;
 }
 
-function show() {
-  for (let row of grid) {
+function show(p) {
+  for (let row of p) {
     console.log(JSON.stringify(row));
   }
 }
 
-function solve() {
+function solve(p) {
   for (let x = 0; x < 9; x++) {
     for (let y = 0; y < 9; y++) {
-      if (grid[x][y] == 0) {
+      if (p[x][y] == 0) {
         for (let n = 1; n <= 9; n++) {
-          if (possible(x, y, n)) {
-            grid[x][y] = n;
-            solve();
-            grid[x][y] = 0;
+          if (possible(p, x, y, n)) {
+            p[x][y] = n;
+            solve(p);
+            p[x][y] = 0;
           }
         }
         return;
       }
     }
   }
-  show();
+  show(p);
 }
 
 solve();
