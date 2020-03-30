@@ -64,5 +64,3 @@ function solve(p) {
   }
   show(p);
 }
-
-solve();
