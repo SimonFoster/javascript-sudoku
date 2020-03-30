@@ -1,5 +1,3 @@
-console.log( process.argv );
-
 var fs = require('fs');
 
 var contents = fs.readFileSync(process.argv[2], 'utf8');
