@@ -1,15 +1,11 @@
-let grid = [
-    [5,3,0,0,7,0,0,0,0],
-    [6,0,0,1,9,5,0,0,0],
-    [0,9,8,0,0,0,0,6,0],
-    [8,0,0,0,6,0,0,0,3],
-    [4,0,0,8,0,3,0,0,1],
-    [7,0,0,0,2,0,0,0,6],
-    [0,6,0,0,0,0,2,8,0],
-    [0,0,0,4,1,9,0,0,5],
-    [0,0,0,0,8,0,0,7,9]];
+var fs = require('fs');
 
-function possible(x,y,n){
+var contents = fs.readFileSync('DATA', 'utf8');
+let grid = JSON.parse(contents);
+console.log(grid);
+
+    
+    function possible(x,y,n){
     for (i = 0; i < 9; i++) {
         if ( grid[x][i] === n ) {
             return false;
