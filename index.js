@@ -1,8 +1,10 @@
 var fs = require('fs');
+var assert = require('assert');
 
 var contents = fs.readFileSync(process.argv[2], 'utf8');
 
 contents.split('\n').map( ( line, index)  => {
+  assert( line.length === 81 );
   console.log( `\nProcessing ${index} "${line}" ${line.length}` );
   let p = line.split('')
   .map( ch => {
